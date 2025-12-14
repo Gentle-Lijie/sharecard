@@ -13,6 +13,8 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      OWNER_LOWER: ${{ toLower(github.repository_owner) }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,8 +39,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/sharecard-backend:latest
-            ghcr.io/${{ github.repository_owner }}/sharecard-backend:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LOWER }}/sharecard-backend:latest
+            ghcr.io/${{ env.OWNER_LOWER }}/sharecard-backend:${{ github.sha }}
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v4
@@ -47,5 +49,5 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/sharecard-frontend:latest
-            ghcr.io/${{ github.repository_owner }}/sharecard-frontend:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LOWER }}/sharecard-frontend:latest
+            ghcr.io/${{ env.OWNER_LOWER }}/sharecard-frontend:${{ github.sha }}
