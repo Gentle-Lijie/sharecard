@@ -11,3 +11,13 @@ class PageSummary(BaseModel):
     content: str
     summary: str
     card_image_base64: str
+    qr_image_base64: str | None = None
+    favicon_base64: str | None = None
+
+
+class FetchResponse(BaseModel):
+    url: HttpUrl
+    title: str
+    content: str
+    qr_image_base64: str | None = None
+    favicon_base64: str | None = None
